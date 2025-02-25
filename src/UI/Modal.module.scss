@@ -1,0 +1,39 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: aliceblue;
+  font-family: sans-serif;
+  z-index: 1;
+}
+
+.modalContent {
+  background: linear-gradient(0deg, rgba(29,38,62,1) 0%, rgba(3,13,56,1) 100%);
+  padding: 20px;
+  border-radius: 8px;
+  width: 350px;
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1px;
+  right: 5px;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+input[type="file"] {
+  display: none;
+}

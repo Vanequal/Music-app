@@ -1,0 +1,17 @@
+.controls {
+  display: flex;
+  align-items: center;
+}
+
+.controlButton, .playButton {
+  background: none;
+  border: none;
+  color: #d5d5d5;
+  font-size: 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.playButton {
+  font-size: 26px;
+}
