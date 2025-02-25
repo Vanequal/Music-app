@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Search from "./pages/Search";
@@ -11,6 +11,7 @@ import TrackList from "./components/TrackList.jsx";
 import TrackDetail from "./components/TrackDetail.jsx";
 import { PlayerProvider, PlayerContext } from "./context/PlayerContext";
 import Callback from "../src/utils/Callback";
+import { getToken } from "./utils/auth"; // Импортируем функцию получения токена
 
 export const CLIENT_ID = '87ca0087d38e45649f938de34553da00';
 export const REDIRECT_URI = 'https://music-app-seven-blond.vercel.app/';
@@ -21,51 +22,50 @@ export const SCOPE = 'user-top-read user-library-read playlist-read-private play
 export const authLink = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
 
 const App = () => {
-
-    const { themeColor } = useContext(PlayerContext);
-    console.log("Цвет темы:", themeColor);
+    useEffect(() => {
+        getToken(); // Получаем токен при загрузке приложения
+    }, []);
 
     return (
         <PlayerProvider>
-        <Router>
-            <PlayerContext.Consumer>
-                {({ themeColor }) => (
-                    <div className={`app-container`} style={{ backgroundColor: themeColor }}>
-                        <div className="header" style={{ backgroundColor: themeColor }}>
-                            <Header />
-                            <a 
-                                style={{ position: 'relative', left: '1375px', bottom: '10px' }} 
-                                href={authLink}>
-                                Войти через Spotify
-                            </a>
-                        </div>
-                        <Sidebar />
-                        <TrackDetail 
-                            track={{
-                                playlistName: "Мой плейлист",
-                                trackName: "Лесник",
-                                artist: "Король и Шут",
-                                duration: "3:12"
-                            }} 
-                        />
-                        <main className="main-content">
-                            <div className='content-center'>
-                                <TrackList />
+            <Router>
+                <PlayerContext.Consumer>
+                    {({ themeColor }) => (
+                        <div className="app-container" style={{ backgroundColor: themeColor }}>
+                            <div className="header" style={{ backgroundColor: themeColor }}>
+                                <Header />
+                                <a 
+                                    style={{ position: 'relative', left: '1375px', bottom: '10px' }} 
+                                    href={authLink}>
+                                    Войти через Spotify
+                                </a>
                             </div>
-                            <Routes>
-                                <Route path="/" element={<Home />} />
-                                <Route path="/search" element={<Search />} />
-                                <Route path="/library" element={<Library />} />
-                                <Route path="/callback" element={<Callback />} />
-                            </Routes>
-                        </main>
-                        <Player />
-                    </div>
-                )}
-            </PlayerContext.Consumer>
-        </Router>
-    </PlayerProvider>
-
+                            <Sidebar />
+                            <TrackDetail 
+                                track={{
+                                    playlistName: "Мой плейлист",
+                                    trackName: "Лесник",
+                                    artist: "Король и Шут",
+                                    duration: "3:12"
+                                }} 
+                            />
+                            <main className="main-content">
+                                <div className='content-center'>
+                                    <TrackList />
+                                </div>
+                                <Routes>
+                                    <Route path="/" element={<Home />} />
+                                    <Route path="/search" element={<Search />} />
+                                    <Route path="/library" element={<Library />} />
+                                    <Route path="/callback" element={<Callback />} />
+                                </Routes>
+                            </main>
+                            <Player />
+                        </div>
+                    )}
+                </PlayerContext.Consumer>
+            </Router>
+        </PlayerProvider>
     );
 };
 
