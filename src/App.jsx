@@ -13,7 +13,7 @@ import { PlayerProvider, PlayerContext } from "./context/PlayerContext";
 import Callback from "../src/utils/Callback";
 
 export const CLIENT_ID = '87ca0087d38e45649f938de34553da00';
-export const REDIRECT_URI = 'http://localhost:5173/callback';
+export const REDIRECT_URI = 'https://music-app-seven-blond.vercel.app/';
 export const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
 export const RESPONSE_TYPE = 'token';
 export const SCOPE = 'user-top-read user-library-read playlist-read-private playlist-read-collaborative user-modify-playback-state user-read-playback-state user-read-currently-playing playlist-modify-public playlist-modify-private';
